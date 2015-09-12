@@ -7,8 +7,8 @@
  ********                             KONFIGURASI                                    ***
  *******************************************************************************************/
  
-char server[] = "www.homeautomationserver.com"; // SERVER
-String location = "/f/7oqjyv4e8pzxic9.txt HTTP/1.1"; // NO SERIAL SERVER
+char server[] = "192.168.1.1"; // SERVER
+String location = "/yoga/string.txt HTTP/1.0"; // NO SERIAL SERVER
 byte mac[] = { 0x90,0xA2,0xDA,0x0F,0x73,0x17 }; // ALAMAT MAC ETHERNET SHIELD
 IPAddress ip(192,168,0,178); // IP
 
@@ -101,7 +101,7 @@ String connect_and_read(){
     client.print("GET ");
     client.println(location);
     //your host
-    client.println("Host: www.homeautomationserver.com");
+    client.println("Host: 192.168.1.1");
     client.println("Connection: close");
     client.println();
     //it's Connected - So let's read the state on our page
