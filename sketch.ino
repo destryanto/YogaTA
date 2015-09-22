@@ -1,5 +1,5 @@
 //-------- ETHERNET SHIELD PROJECT -------
-// ---------- STT TELKOM 2014 ------------
+// ---------- STT TELKOM 2015 ------------
 #include <Ethernet.h>
 #include <SPI.h>
 
@@ -7,21 +7,20 @@
  ********                             KONFIGURASI                                    ***
  *******************************************************************************************/
  
-char server[] = "192.168.1.1"; // SERVER
-String location = "/yoga/string.txt HTTP/1.0"; // NO SERIAL SERVER
+char server[] = "dikibul.in"; // SERVER
+String location = "/string.txt HTTP/1.0"; // NO SERIAL SERVER
 byte mac[] = { 0x90,0xA2,0xDA,0x0F,0x73,0x17 }; // ALAMAT MAC ETHERNET SHIELD
-IPAddress ip(192,168,0,178); // IP
+IPAddress ip(192,168,1,178); // IP
 
 EthernetClient client;       // defines our client
 char lastState[32];          // string for incoming serial data
 int lastStatePos = 0;        // index counter for lastState variable
 boolean startRead = false;   // if it's true is reading the page
 int stop_connection = 0;     // if the client is not available stops the connection
-int AC = 6;         // "Beban AC terhubung ke pin digital 6 Arduino
-int light_1 = 9;             // "Light #1" terhubung ke pin digital 7 Arduino
-int light_2 = 8;             // "Light #2" terhubung ke pin digital 8 Arduino
-int light_3 = 7;             // "Light #3" terhubung ke pin digital 9 Arduino
-
+int light_1 = 6;             // "Light #1" terhubung ke pin digital 7 Arduino
+int light_2 = 7;             // "Light #2" terhubung ke pin digital 8 Arduino
+int light_3 = 8;             // "Light #3" terhubung ke pin digital 9 Arduino
+int AC = 9;         // "Beban AC terhubung ke pin digital 6 Arduino
 /*****************************
  ****     SETUP ***
  *****************************/
@@ -86,6 +85,15 @@ void updateState(String pageState)
   else if(pageState=="8"){            // Turn off tombol #4
     digitalWrite(AC, LOW);
   }
+  else if(pageState=="0"){            // Turn off tombol #4
+    digitalWrite(light_1, HIGH);
+    delay(1000);
+    digitalWrite(light_2, HIGH);
+    delay(1000);
+    digitalWrite(light_3, HIGH);
+    delay(1000);
+    digitalWrite(AC, HIGH);
+  }
 }
 
 //---------------------------------------------
@@ -105,7 +113,8 @@ String connect_and_read(){
     client.println("Connection: close");
     client.println();
     //it's Connected - So let's read the state on our page
-    return readState(); 
+    return readState();
+    
   }
   //if the client can't connect to the server
   else{
@@ -126,17 +135,18 @@ String readState(){
     //checks if the client is available
     if (client.available()) {
       //stores what is reading in the char c
-      char c = client.read();
-      //'<' is our begining character, our state is between '<>' for example: <1>
-      if (c == '<' ) { 
+      char a = client.read();
+       //'<' is our begining character, our state is between '<>' for example: <1>
+      if (a == '<' ) { 
         //Now is Ready to start reading the page
-        startRead = true;  
+        startRead = true;
+          
       }
       //after reading the '<'
       else if(startRead){
           //'>' is our ending character
-          if(c != '>'){ 
-          lastState[lastStatePos] = c;
+          if(a != '>'){ 
+          lastState[lastStatePos] = a;
           lastStatePos ++;
           }
           else{
