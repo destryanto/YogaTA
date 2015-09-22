@@ -7,7 +7,7 @@
  ********                             KONFIGURASI                                    ***
  *******************************************************************************************/
  
-char server[] = "dikibul.in"; // SERVER
+char server[] = "wisnuyo.ga"; // SERVER
 String location = "/string.txt HTTP/1.0"; // NO SERIAL SERVER
 byte mac[] = { 0x90,0xA2,0xDA,0x0F,0x73,0x17 }; // ALAMAT MAC ETHERNET SHIELD
 IPAddress ip(192,168,1,178); // IP
