@@ -8,9 +8,9 @@
  *******************************************************************************************/
  
 char server[] = "wisnuyo.ga"; // SERVER
-String location = "/string.txt HTTP/1.0"; // NO SERIAL SERVER
+String location = "/string.txt HTTP/1.1"; // NO SERIAL SERVER
 byte mac[] = { 0x90,0xA2,0xDA,0x0F,0x73,0x17 }; // ALAMAT MAC ETHERNET SHIELD
-IPAddress ip(192,168,1,178); // IP
+IPAddress ip(10,42,0,69); // IP
 
 EthernetClient client;       // defines our client
 char lastState[32];          // string for incoming serial data
@@ -109,7 +109,7 @@ String connect_and_read(){
     client.print("GET ");
     client.println(location);
     //your host
-    client.println("Host: 192.168.1.1");
+    client.println("Host: wisnuyo.ga");
     client.println("Connection: close");
     client.println();
     //it's Connected - So let's read the state on our page
